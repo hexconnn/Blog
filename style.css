@@ -1,0 +1,105 @@
+body{
+    font-family: Arial, sans-serif;
+    background: #f5f7fa;
+}
+
+/* Navbar */
+
+.navbar{
+    background: linear-gradient(
+    90deg,
+    #0d6efd,
+    #0dcaf0
+    );
+}
+
+.navbar-brand{
+    font-size: 24px;
+}
+
+.nav-link{
+    color: white !important;
+    margin-left: 10px;
+    transition: 0.3s;
+}
+
+.nav-link:hover{
+    color: yellow !important;
+}
+
+/* Hero */
+
+.hero-section{
+    padding: 100px 0;
+    background: linear-gradient(
+    120deg,
+    #0d6efd,
+    #0dcaf0
+    );
+    color: white;
+}
+
+.hero-title{
+    font-size: 48px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.hero-text{
+    font-size: 18px;
+    line-height: 1.8;
+    margin-bottom: 30px;
+}
+
+.hero-image{
+    width: 300px;
+    animation: float 3s ease-in-out infinite;
+}
+
+/* Animasi */
+
+@keyframes float{
+
+    0%{
+        transform: translateY(0px);
+    }
+
+    50%{
+        transform: translateY(-15px);
+    }
+
+    100%{
+        transform: translateY(0px);
+    }
+
+}
+
+/* Card */
+
+.dashboard-card{
+    border: none;
+    border-radius: 20px;
+    transition: 0.3s;
+    text-align: center;
+    padding: 20px;
+}
+
+.dashboard-card:hover{
+    transform: translateY(-10px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.icon-dashboard{
+    font-size: 50px;
+    margin-bottom: 20px;
+    color: #0d6efd;
+}
+
+/* Footer */
+
+footer{
+    background: #0d6efd;
+    color: white;
+    padding: 20px;
+    margin-top: 50px;
+}
