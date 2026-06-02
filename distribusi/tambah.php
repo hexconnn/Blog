@@ -1,7 +1,7 @@
 <?php
 include '../koneksi.php';
 
-if(isset($_POST['simpan'])){
+if (isset($_POST['simpan'])) {
 
     $penerima = $_POST['penerima'];
     $bantuan = $_POST['bantuan'];
@@ -9,7 +9,7 @@ if(isset($_POST['simpan'])){
     $tanggal = $_POST['tanggal'];
     $status = $_POST['status'];
 
-    mysqli_query($conn,"
+    mysqli_query($conn, "
     INSERT INTO distribusi
     (
         id_penerima,
@@ -31,14 +31,20 @@ if(isset($_POST['simpan'])){
     header("location:index.php");
 }
 
-$penerima = mysqli_query($conn,
-"SELECT * FROM penerima");
+$penerima = mysqli_query(
+    $conn,
+    "SELECT * FROM penerima"
+);
 
-$bantuan = mysqli_query($conn,
-"SELECT * FROM bantuan");
+$bantuan = mysqli_query(
+    $conn,
+    "SELECT * FROM bantuan"
+);
 
-$petugas = mysqli_query($conn,
-"SELECT * FROM user");
+$petugas = mysqli_query(
+    $conn,
+    "SELECT * FROM petugas"
+);
 ?>
 
 <!DOCTYPE html>
@@ -46,167 +52,163 @@ $petugas = mysqli_query($conn,
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<title>Tambah Distribusi</title>
+    <title>Tambah Distribusi</title>
 
-<link
-href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-rel="stylesheet">
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
 
 </head>
 
 <body class="bg-light">
 
-<div class="container mt-5">
+    <div class="container mt-5">
 
-<div class="card shadow border-0">
+        <div class="card shadow border-0">
 
-<div class="card-header bg-primary text-white">
+            <div class="card-header bg-primary text-white">
 
-<h4>
-Tambah Distribusi Bantuan
-</h4>
+                <h4>
+                    Tambah Distribusi Bantuan
+                </h4>
 
-</div>
+            </div>
 
-<div class="card-body">
+            <div class="card-body">
 
-<form method="POST">
+                <form method="POST">
 
-<div class="mb-3">
+                    <div class="mb-3">
 
-<label>Penerima</label>
+                        <label>Penerima</label>
 
-<select
-name="penerima"
-class="form-select">
+                        <select
+                            name="penerima"
+                            class="form-select">
 
-<?php
-while($p =
-mysqli_fetch_array($penerima)){
-?>
+                            <?php
+                            while ($p =
+                                mysqli_fetch_array($penerima)
+                            ) {
+                            ?>
 
-<option
-value="<?= $p['id_penerima']; ?>">
+                                <option
+                                    value="<?= $p['id_penerima']; ?>">
 
-<?= $p['nama']; ?>
+                                    <?= $p['nama']; ?>
 
-</option>
+                                </option>
 
-<?php } ?>
+                            <?php } ?>
 
-</select>
+                        </select>
 
-</div>
+                    </div>
 
-<div class="mb-3">
+                    <div class="mb-3">
 
-<label>Bantuan</label>
+                        <label>Bantuan</label>
 
-<select
-name="bantuan"
-class="form-select">
+                        <select
+                            name="bantuan"
+                            class="form-select">
 
-<?php
-while($b =
-mysqli_fetch_array($bantuan)){
-?>
+                            <?php
+                            while ($b =
+                                mysqli_fetch_array($bantuan)
+                            ) {
+                            ?>
 
-<option
-value="<?= $b['id_bantuan']; ?>">
+                                <option
+                                    value="<?= $b['id_bantuan']; ?>">
 
-<?= $b['nama_bantuan']; ?>
+                                    <?= $b['nama_bantuan']; ?>
 
-</option>
+                                </option>
 
-<?php } ?>
+                            <?php } ?>
 
-</select>
+                        </select>
 
-</div>
+                    </div>
 
-<div class="mb-3">
+                    <div class="mb-3">
 
-<label>Petugas</label>
+                        <label>Petugas</label>
 
-<select
-name="petugas"
-class="form-select">
+                        <select
+                            name="petugas"
+                            class="form-select">
 
-<?php
-while($u =
-mysqli_fetch_array($petugas)){
-?>
+                            <?php
+                            while ($u = mysqli_fetch_array($petugas)) {
+                            ?>
+                                <option value="<?= $u['id_petugas']; ?>">
+                                    <?= $u['nama']; ?> - <?= $u['jabatan']; ?>
+                                </option>
+                            <?php } ?>
+                        </select>
 
-<option
-value="<?= $u['id_user']; ?>">
+                    </div>
 
-<?= $u['username']; ?>
+                    <div class="mb-3">
 
-</option>
+                        <label>Tanggal</label>
 
-<?php } ?>
+                        <input type="date"
+                            name="tanggal"
+                            class="form-control">
 
-</select>
+                    </div>
 
-</div>
+                    <div class="mb-3">
 
-<div class="mb-3">
+                        <label>Status</label>
 
-<label>Tanggal</label>
+                        <select
+                            name="status"
+                            class="form-select">
 
-<input type="date"
-name="tanggal"
-class="form-control">
+                            <option value="Pending">
+                                Pending
+                            </option>
 
-</div>
+                            <option value="Diproses">
+                                Diproses
+                            </option>
 
-<div class="mb-3">
+                            <option value="Selesai">
+                                Selesai
+                            </option>
 
-<label>Status</label>
+                        </select>
 
-<select
-name="status"
-class="form-select">
+                    </div>
 
-<option value="Pending">
-Pending
-</option>
+                    <button
+                        type="submit"
+                        name="simpan"
+                        class="btn btn-primary">
 
-<option value="Diproses">
-Diproses
-</option>
+                        Simpan
 
-<option value="Selesai">
-Selesai
-</option>
+                    </button>
 
-</select>
+                    <a href="index.php"
+                        class="btn btn-secondary">
 
-</div>
+                        Kembali
 
-<button
-type="submit"
-name="simpan"
-class="btn btn-primary">
+                    </a>
 
-Simpan
+                </form>
 
-</button>
-
-<a href="index.php"
-class="btn btn-secondary">
-
-Kembali
-
-</a>
-
-</form>
-
-</div>
-</div>
-</div>
+            </div>
+        </div>
+    </div>
 
 </body>
+
 </html>
