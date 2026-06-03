@@ -1,7 +1,7 @@
 <?php
 include '../koneksi.php';
 
-if(isset($_POST['simpan'])){
+if (isset($_POST['simpan'])) {
 
     $penerima = $_POST['penerima'];
     $status = $_POST['status'];
@@ -25,12 +25,15 @@ if(isset($_POST['simpan'])){
     header("location:index.php");
 }
 
-$penerima = mysqli_query($conn,
-"SELECT * FROM penerima");
+$penerima = mysqli_query(
+    $conn,
+    "SELECT * FROM penerima"
+);
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -41,99 +44,101 @@ $penerima = mysqli_query($conn,
 
 <body class="bg-light">
 
-<div class="container mt-5">
+    <div class="container mt-5">
 
-    <div class="card shadow border-0">
+        <div class="card shadow border-0">
 
-        <div class="card-header bg-primary text-white">
-            <h4>Tambah Validasi</h4>
-        </div>
+            <div class="card-header bg-primary text-white">
+                <h4>Tambah Validasi</h4>
+            </div>
 
-        <div class="card-body">
+            <div class="card-body">
 
-            <form method="POST">
+                <form method="POST">
 
-                <div class="mb-3">
+                    <div class="mb-3">
 
-                    <label class="form-label">
-                        Nama Penerima
-                    </label>
+                        <label class="form-label">
+                            Nama Penerima
+                        </label>
 
-                    <select name="penerima"
-                    class="form-select">
+                        <select name="penerima"
+                            class="form-select">
 
-                        <?php
-                        while($p =
-                        mysqli_fetch_array($penerima)){
-                        ?>
+                            <?php
+                            while ($p =
+                                mysqli_fetch_array($penerima)
+                            ) {
+                            ?>
 
-                        <option value="<?= $p['id_penerima']; ?>">
+                                <option value="<?= $p['id_penerima']; ?>">
 
-                            <?= $p['nama']; ?>
+                                    <?= $p['nama']; ?>
 
-                        </option>
+                                </option>
 
-                        <?php } ?>
+                            <?php } ?>
 
-                    </select>
+                        </select>
 
-                </div>
+                    </div>
 
-                <div class="mb-3">
+                    <div class="mb-3">
 
-                    <label class="form-label">
-                        Status Validasi
-                    </label>
+                        <label class="form-label">
+                            Status Validasi
+                        </label>
 
-                    <select name="status"
-                    class="form-select">
+                        <select name="status"
+                            class="form-select">
 
-                        <option value="Layak">
-                            Layak
-                        </option>
+                            <option value="Layak">
+                                Layak
+                            </option>
 
-                        <option value="Tidak Layak">
-                            Tidak Layak
-                        </option>
+                            <option value="Tidak Layak">
+                                Tidak Layak
+                            </option>
 
-                    </select>
+                        </select>
 
-                </div>
+                    </div>
 
-                <div class="mb-3">
+                    <div class="mb-3">
 
-                    <label class="form-label">
-                        Tanggal Validasi
-                    </label>
+                        <label class="form-label">
+                            Tanggal Validasi
+                        </label>
 
-                    <input type="date"
-                    name="tanggal"
-                    class="form-control">
+                        <input type="date"
+                            name="tanggal"
+                            class="form-control">
 
-                </div>
+                    </div>
 
-                <button type="submit"
-                name="simpan"
-                class="btn btn-primary">
+                    <button type="submit"
+                        name="simpan"
+                        class="btn btn-primary">
 
-                    Simpan
+                        Simpan
 
-                </button>
+                    </button>
 
-                <a href="index.php"
-                class="btn btn-secondary">
+                    <a href="index.php"
+                        class="btn btn-secondary">
 
-                    Kembali
+                        Kembali
 
-                </a>
+                    </a>
 
-            </form>
+                </form>
+
+            </div>
 
         </div>
 
     </div>
 
-</div>
-
 </body>
+
 </html>

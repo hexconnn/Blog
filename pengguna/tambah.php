@@ -1,13 +1,13 @@
 <?php
 include '../koneksi.php';
 
-if(isset($_POST['simpan'])){
+if (isset($_POST['simpan'])) {
 
     $username = $_POST['username'];
     $password = md5($_POST['password']);
     $role = $_POST['role'];
 
-    mysqli_query($conn,"
+    mysqli_query($conn, "
     INSERT INTO user
     (
         username,
@@ -31,99 +31,100 @@ if(isset($_POST['simpan'])){
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<title>Tambah User</title>
+    <title>Tambah User</title>
 
-<link
-href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-rel="stylesheet">
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
 
 </head>
 
 <body class="bg-light">
 
-<div class="container mt-5">
+    <div class="container mt-5">
 
-    <div class="card shadow border-0">
+        <div class="card shadow border-0">
 
-        <div class="card-header bg-primary text-white">
+            <div class="card-header bg-primary text-white">
 
-            <h4>
-                Tambah User
-            </h4>
+                <h4>
+                    Tambah User
+                </h4>
 
-        </div>
+            </div>
 
-        <div class="card-body">
+            <div class="card-body">
 
-            <form method="POST">
+                <form method="POST">
 
-                <div class="mb-3">
+                    <div class="mb-3">
 
-                    <label>Username</label>
+                        <label>Username</label>
 
-                    <input type="text"
-                    name="username"
-                    class="form-control"
-                    required>
+                        <input type="text"
+                            name="username"
+                            class="form-control"
+                            required>
 
-                </div>
+                    </div>
 
-                <div class="mb-3">
+                    <div class="mb-3">
 
-                    <label>Password</label>
+                        <label>Password</label>
 
-                    <input type="password"
-                    name="password"
-                    class="form-control"
-                    required>
+                        <input type="password"
+                            name="password"
+                            class="form-control"
+                            required>
 
-                </div>
+                    </div>
 
-                <div class="mb-3">
+                    <div class="mb-3">
 
-                    <label>Role</label>
+                        <label>Role</label>
 
-                    <select
-                    name="role"
-                    class="form-select">
+                        <select
+                            name="role"
+                            class="form-select">
 
-                        <option value="admin">
-                            Admin
-                        </option>
+                            <option value="admin">
+                                Admin
+                            </option>
 
-                        <option value="petugas">
-                            Petugas
-                        </option>
+                            <option value="petugas">
+                                Petugas
+                            </option>
 
-                    </select>
+                        </select>
 
-                </div>
+                    </div>
 
-                <button
-                type="submit"
-                name="simpan"
-                class="btn btn-primary">
+                    <button
+                        type="submit"
+                        name="simpan"
+                        class="btn btn-primary">
 
-                    Simpan
+                        Simpan
 
-                </button>
+                    </button>
 
-                <a href="index.php"
-                class="btn btn-secondary">
+                    <a href="index.php"
+                        class="btn btn-secondary">
 
-                    Kembali
+                        Kembali
 
-                </a>
+                    </a>
 
-            </form>
+                </form>
+
+            </div>
 
         </div>
 
     </div>
 
-</div>
-
 </body>
+
 </html>

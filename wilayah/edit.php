@@ -3,20 +3,22 @@ include '../koneksi.php';
 
 $id = $_GET['id'];
 
-$data = mysqli_query($conn,
-"SELECT * FROM wilayah
-WHERE id_wilayah='$id'");
+$data = mysqli_query(
+    $conn,
+    "SELECT * FROM wilayah
+WHERE id_wilayah='$id'"
+);
 
 $d = mysqli_fetch_array($data);
 
-if(isset($_POST['update'])){
+if (isset($_POST['update'])) {
 
     $desa = $_POST['desa'];
     $kecamatan = $_POST['kecamatan'];
     $kabupaten = $_POST['kabupaten'];
     $provinsi = $_POST['provinsi'];
 
-    mysqli_query($conn,"
+    mysqli_query($conn, "
     UPDATE wilayah SET
     nama_desa='$desa',
     kecamatan='$kecamatan',
@@ -34,101 +36,102 @@ if(isset($_POST['update'])){
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<title>Edit Wilayah</title>
+    <title>Edit Wilayah</title>
 
-<link
-href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-rel="stylesheet">
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
 
 </head>
 
 <body class="bg-light">
 
-<div class="container mt-5">
+    <div class="container mt-5">
 
-    <div class="card shadow border-0">
+        <div class="card shadow border-0">
 
-        <div class="card-header bg-warning">
+            <div class="card-header bg-warning">
 
-            <h4>
-                Edit Data Wilayah
-            </h4>
+                <h4>
+                    Edit Data Wilayah
+                </h4>
 
-        </div>
+            </div>
 
-        <div class="card-body">
+            <div class="card-body">
 
-            <form method="POST">
+                <form method="POST">
 
-                <div class="mb-3">
+                    <div class="mb-3">
 
-                    <label>Nama Desa</label>
+                        <label>Nama Desa</label>
 
-                    <input type="text"
-                    name="desa"
-                    class="form-control"
-                    value="<?= $d['nama_desa']; ?>">
+                        <input type="text"
+                            name="desa"
+                            class="form-control"
+                            value="<?= $d['nama_desa']; ?>">
 
-                </div>
+                    </div>
 
-                <div class="mb-3">
+                    <div class="mb-3">
 
-                    <label>Kecamatan</label>
+                        <label>Kecamatan</label>
 
-                    <input type="text"
-                    name="kecamatan"
-                    class="form-control"
-                    value="<?= $d['kecamatan']; ?>">
+                        <input type="text"
+                            name="kecamatan"
+                            class="form-control"
+                            value="<?= $d['kecamatan']; ?>">
 
-                </div>
+                    </div>
 
-                <div class="mb-3">
+                    <div class="mb-3">
 
-                    <label>Kabupaten</label>
+                        <label>Kabupaten</label>
 
-                    <input type="text"
-                    name="kabupaten"
-                    class="form-control"
-                    value="<?= $d['kabupaten']; ?>">
+                        <input type="text"
+                            name="kabupaten"
+                            class="form-control"
+                            value="<?= $d['kabupaten']; ?>">
 
-                </div>
+                    </div>
 
-                <div class="mb-3">
+                    <div class="mb-3">
 
-                    <label>Provinsi</label>
+                        <label>Provinsi</label>
 
-                    <input type="text"
-                    name="provinsi"
-                    class="form-control"
-                    value="<?= $d['provinsi']; ?>">
+                        <input type="text"
+                            name="provinsi"
+                            class="form-control"
+                            value="<?= $d['provinsi']; ?>">
 
-                </div>
+                    </div>
 
-                <button
-                type="submit"
-                name="update"
-                class="btn btn-warning">
+                    <button
+                        type="submit"
+                        name="update"
+                        class="btn btn-warning">
 
-                    Update
+                        Update
 
-                </button>
+                    </button>
 
-                <a href="index.php"
-                class="btn btn-secondary">
+                    <a href="index.php"
+                        class="btn btn-secondary">
 
-                    Kembali
+                        Kembali
 
-                </a>
+                    </a>
 
-            </form>
+                </form>
+
+            </div>
 
         </div>
 
     </div>
 
-</div>
-
 </body>
+
 </html>
