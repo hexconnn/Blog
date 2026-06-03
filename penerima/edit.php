@@ -3,13 +3,15 @@ include '../koneksi.php';
 
 $id = $_GET['id'];
 
-$data = mysqli_query($conn,
-"SELECT * FROM penerima
-WHERE id_penerima='$id'");
+$data = mysqli_query(
+    $conn,
+    "SELECT * FROM penerima
+WHERE id_penerima='$id'"
+);
 
 $d = mysqli_fetch_array($data);
 
-if(isset($_POST['update'])){
+if (isset($_POST['update'])) {
 
     $nama = $_POST['nama'];
     $nik = $_POST['nik'];
@@ -17,17 +19,36 @@ if(isset($_POST['update'])){
     $no_hp = $_POST['no_hp'];
     $status = $_POST['status'];
 
-    mysqli_query($conn,"
-    UPDATE penerima SET
-    nama='$nama',
-    nik='$nik',
-    alamat='$alamat',
-    no_hp='$no_hp',
-    status_ekonomi='$status'
-    WHERE id_penerima='$id'
-    ");
+    // Cek duplikat, TAPI abaikan data dirinya sendiri (id_penerima != $id)
+    $cek_duplikat = mysqli_query($conn, "SELECT * FROM penerima WHERE (nik='$nik' OR no_hp='$no_hp') AND id_penerima != '$id'");
 
-    header("location:index.php");
+    if (mysqli_num_rows($cek_duplikat) > 0) {
+        $data_lama = mysqli_fetch_array($cek_duplikat);
+        if ($data_lama['nik'] == $nik) {
+            echo "<script>
+                    alert('UPDATE GAGAL: NIK $nik sudah terdaftar milik warga lain!');
+                    window.location.href='edit.php?id=$id';
+                  </script>";
+        } else if ($data_lama['no_hp'] == $no_hp && !empty($no_hp)) {
+            echo "<script>
+                    alert('UPDATE GAGAL: Nomor HP $no_hp sudah dipakai warga lain!');
+                    window.location.href='edit.php?id=$id';
+                  </script>";
+        }
+    } else {
+        // Jika aman, lakukan update
+        mysqli_query($conn, "
+        UPDATE penerima SET
+        nama='$nama',
+        nik='$nik',
+        alamat='$alamat',
+        no_hp='$no_hp',
+        status_ekonomi='$status'
+        WHERE id_penerima='$id'
+        ");
+
+        header("location:index.php");
+    }
 }
 ?>
 
@@ -36,111 +57,112 @@ if(isset($_POST['update'])){
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<title>Edit Data</title>
+    <title>Edit Data</title>
 
-<link
-href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-rel="stylesheet">
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
 
 </head>
 
 <body class="bg-light">
 
-<div class="container mt-5">
+    <div class="container mt-5">
 
-    <div class="card shadow border-0">
+        <div class="card shadow border-0">
 
-        <div class="card-header bg-warning">
+            <div class="card-header bg-warning">
 
-            <h4>
-                Edit Data Penerima
-            </h4>
+                <h4>
+                    Edit Data Penerima
+                </h4>
 
-        </div>
+            </div>
 
-        <div class="card-body">
+            <div class="card-body">
 
-            <form method="POST">
+                <form method="POST">
 
-                <div class="mb-3">
+                    <div class="mb-3">
 
-                    <label>Nama</label>
+                        <label>Nama</label>
 
-                    <input type="text"
-                    name="nama"
-                    class="form-control"
-                    value="<?= $d['nama']; ?>">
+                        <input type="text"
+                            name="nama"
+                            class="form-control"
+                            value="<?= $d['nama']; ?>">
 
-                </div>
+                    </div>
 
-                <div class="mb-3">
+                    <div class="mb-3">
 
-                    <label>NIK</label>
+                        <label>NIK</label>
 
-                    <input type="text"
-                    name="nik"
-                    class="form-control"
-                    value="<?= $d['nik']; ?>">
+                        <input type="text"
+                            name="nik"
+                            class="form-control"
+                            value="<?= $d['nik']; ?>">
 
-                </div>
+                    </div>
 
-                <div class="mb-3">
+                    <div class="mb-3">
 
-                    <label>Alamat</label>
+                        <label>Alamat</label>
 
-                    <textarea
-                    name="alamat"
-                    class="form-control"><?= $d['alamat']; ?></textarea>
+                        <textarea
+                            name="alamat"
+                            class="form-control"><?= $d['alamat']; ?></textarea>
 
-                </div>
+                    </div>
 
-                <div class="mb-3">
+                    <div class="mb-3">
 
-                    <label>No HP</label>
+                        <label>No HP</label>
 
-                    <input type="text"
-                    name="no_hp"
-                    class="form-control"
-                    value="<?= $d['no_hp']; ?>">
+                        <input type="text"
+                            name="no_hp"
+                            class="form-control"
+                            value="<?= $d['no_hp']; ?>">
 
-                </div>
+                    </div>
 
-                <div class="mb-3">
+                    <div class="mb-3">
 
-                    <label>Status Ekonomi</label>
+                        <label>Status Ekonomi</label>
 
-                    <input type="text"
-                    name="status"
-                    class="form-control"
-                    value="<?= $d['status_ekonomi']; ?>">
+                        <input type="text"
+                            name="status"
+                            class="form-control"
+                            value="<?= $d['status_ekonomi']; ?>">
 
-                </div>
+                    </div>
 
-                <button
-                type="submit"
-                name="update"
-                class="btn btn-warning">
+                    <button
+                        type="submit"
+                        name="update"
+                        class="btn btn-warning">
 
-                    Update
+                        Update
 
-                </button>
+                    </button>
 
-                <a href="index.php"
-                class="btn btn-secondary">
+                    <a href="index.php"
+                        class="btn btn-secondary">
 
-                    Kembali
+                        Kembali
 
-                </a>
+                    </a>
 
-            </form>
+                </form>
+
+            </div>
 
         </div>
 
     </div>
 
-</div>
-
 </body>
+
 </html>
